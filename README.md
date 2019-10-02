@@ -2,6 +2,9 @@
 
 Web Programming with Python and JavaScript
 
+To remove any file from being added to the git repository add the file name into
+.gitignore file in the base repository directory.
+
 Make sure to export the following environment variables before you run the app
 
 export FLASK_APP=application.py
