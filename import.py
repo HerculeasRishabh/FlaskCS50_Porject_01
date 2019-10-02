@@ -1,4 +1,4 @@
-import os
+import os, csv
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -15,8 +15,12 @@ def import_books ():
         try:
             db.execute("INSERT INTO BOOKS VALUES (:isbn, :title, :author, :year)",
                     {"isbn" : isbn, "title" : title, "author" : author, "year" : year})
+            print ("Insert Success")
         except Exception as err:
+            print ("Insert Failuer")
+            print(isbn, title, author, year)
             print (err)
+    db.commit()
 
 
 if __name__ == "__main__":
