@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_templat
+from flask import Flask, session, render_template, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -47,4 +47,12 @@ def register_user():
     user = Before_Login_Logic(user_name, user_email, user_psswd)
     user.register_user()
 
-    return render_templat("index.html")
+    return render_template("index.html")
+
+@app.route("login_user", method=["POST"])
+def login_user():
+    user_name = request.form.get("user_name")
+    user_psswd = request.form.get("user_psswd")
+
+    #TODO login function already created in before_login_db.py
+
