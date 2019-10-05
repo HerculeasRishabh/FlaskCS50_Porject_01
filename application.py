@@ -5,6 +5,8 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+from before_login import before_login_db
+
 app = Flask(__name__)
 
 # Check for environment variable
@@ -21,10 +23,14 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 
-@app.route("/")
+@app.route("/index")
 def index():
     return render_template("index.html")
 
-@app.route("/welcome")
-def welcome():
-    return "<h1>Setup is Complete!!!</h1>"
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")

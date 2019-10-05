@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+  <!-- User defined styles-->
+  <link rel="stylesheet" type="text/css" href="static/style.css">
+
   <title>{% block title %} {% endblock %}</title>
 </head>
 
@@ -24,7 +27,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" href="index">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
@@ -32,10 +35,10 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <button type="button" class="btn btn-outline-info">Register</button>
+          <a href="register"><button type="button" class="btn btn-outline-info">Register</button></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
+            <a class="nav-link" href="login">Login</a>
           </li>
       </ul>
     </div>
