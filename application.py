@@ -1,11 +1,11 @@
 import os
 
-from flask import Flask, session, render_template
+from flask import Flask, session, render_templat
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-from before_login import before_login_db
+from before_login.before_login_db import Before_Login_Logic
 
 app = Flask(__name__)
 
@@ -22,6 +22,7 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+# GET Requests
 
 @app.route("/index")
 def index():
@@ -34,3 +35,16 @@ def register():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+# POST Requests
+
+@app.route("/register_user", methods=["POST"])
+def register_user():
+    user_name = request.form.get('user_name')
+    user_email = request.form.get('user_email')
+    user_psswd = request.form.get('user_psswd')
+
+    user = Before_Login_Logic(user_name, user_email, user_psswd)
+    user.register_user()
+
+    return render_templat("index.html")
