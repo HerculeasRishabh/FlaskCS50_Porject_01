@@ -1,0 +1,28 @@
+{% extends "layout_beforeLogin.html" %}
+
+{% block title %} Review {% endblock %}
+
+{% block body %}
+
+<div class="books_flex_box">
+    <div>
+        <img src="/static/thisIsCS50.png" class="img-fluid" alt="Responsive image">
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="table-dark">Book</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="table-primary">ISBN</td></tr>
+                <tr><td class="table-info">Title</td></tr>
+                <tr><td class="table-primary">Author</td></tr>
+                <tr><td class="table-info">Year</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

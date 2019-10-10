@@ -117,3 +117,7 @@ def search_books():
         books = book_data.get_books()
 
         return render_template("search_books.html", books=books, user=session['user'])
+
+@app.route("/test")
+def book_review():
+    return render_template("book_review.html")
