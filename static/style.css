@@ -19,11 +19,13 @@
 .books_flex_box{
     display: flex;
     flex-wrap: wrap;
+    margin: 5% auto;
 }
 
-.books_flex_box{
-    width: 500px;
-    margin: 5% auto;
+@media (min-width: 600px){
+    .books_flex_box{
+        width: 500px;
+    }
 }
 
 .books_flex_box > div{

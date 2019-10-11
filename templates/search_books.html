@@ -15,7 +15,7 @@
     <tbody>
         {% for book in books %}
         <tr>
-            <td>{{ book.isbn }}</td>
+            <td><a href="{{ url_for('find_book', isbn=book.isbn) }}">{{ book.isbn }}</a></td>
             <td>{{ book.title }}</td>
             <td>{{ book.author }}</td>
             <td>{{ book.year }}</td>

@@ -35,7 +35,21 @@ class Books:
             print(err)
         return books if books is not None else None
 
+    def get_ISBN_Book(self):
+        if not os.getenv("DATABASE_URL"):
+            raise("DATABASE_URL is not set!")
+
+        engine = create_engine(os.getenv("DATABASE_URL"))
+        db = scoped_session(sessionmaker(bind=engine))
+
+        try:
+            book = db.execute("SELECT * FROM BOOKS WHERE ISBN = :isbn", {"isbn" : self.book_isbn}).fetchone()
+        except Exception as err:
+            print ("ERROR while fetching book with isbn")
+            print (err)
+        return book if book is not None else None
 
 if __name__ == "__main__":
-    my_book = Books(book_author=None)
-    my_book.get_books()
+    my_book = Books(book_isbn="1234")
+    books = my_book.get_books()
+    print (books)

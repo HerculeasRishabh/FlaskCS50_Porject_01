@@ -1,4 +1,4 @@
-{% extends "layout_beforeLogin.html" %}
+{% extends "layout_afterLogin.html" %}
 
 {% block title %} Review {% endblock %}
 
@@ -6,7 +6,7 @@
 
 <div class="books_flex_box">
     <div>
-        <img src="/static/thisIsCS50.png" class="img-fluid" alt="Responsive image">
+        <img src="{{ url_for('static', filename='thisIsCS50.png') }}" class="img-fluid" alt="Responsive image">
     </div>
     <div>
         <table class="table">
@@ -16,10 +16,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr><td class="table-primary">ISBN</td></tr>
-                <tr><td class="table-info">Title</td></tr>
-                <tr><td class="table-primary">Author</td></tr>
-                <tr><td class="table-info">Year</td></tr>
+                <tr><td class="table-primary">{{ book_data.isbn }}</td></tr>
+                <tr><td class="table-info">{{ book_data.title }}</td></tr>
+                <tr><td class="table-primary">{{ book_data.author }}</td></tr>
+                <tr><td class="table-info">{{ book_data.year }}</td></tr>
             </tbody>
         </table>
     </div>

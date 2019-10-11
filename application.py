@@ -104,19 +104,29 @@ def logout():
 def search_books():
     if 'user' not in session:
         return render_template("index.html", Message="Please login First")
-    else:
-        book_isbn = request.form.get("book_isbn")
-        book_title = request.form.get("book_title")
-        book_author = request.form.get("book_author")
-        book_year = xInt(request.form.get('book_year'))
+    
+    book_isbn = request.form.get("book_isbn")
+    book_title = request.form.get("book_title")
+    book_author = request.form.get("book_author")
+    book_year = xInt(request.form.get('book_year'))
 
-        print("Book_Year: ", book_year, type(book_year))
-        book_data = Books(book_isbn=book_isbn, book_title=book_title, 
-                        book_author=book_author, book_year=book_year)
+    print("Book_Year: ", book_year, type(book_year))
+    book_data = Books(book_isbn=book_isbn, book_title=book_title, 
+                    book_author=book_author, book_year=book_year)
 
-        books = book_data.get_books()
+    books = book_data.get_books()
 
-        return render_template("search_books.html", books=books, user=session['user'])
+    return render_template("search_books.html", books=books, user=session['user'])
+
+@app.route("/find_book/<string:isbn>")
+def find_book(isbn):
+    if 'user' not in session:
+        return render_template("index.html", Message="Please login First")
+    
+    book = Books(book_isbn=isbn)
+    book_data = book.get_ISBN_Book()
+
+    return render_template("book_review.html", book_data=book_data, user=session['user'])
 
 @app.route("/test")
 def book_review():
