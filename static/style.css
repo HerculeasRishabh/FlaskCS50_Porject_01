@@ -19,7 +19,7 @@
 .books_flex_box{
     display: flex;
     flex-wrap: wrap;
-    margin: 5% auto;
+    margin: 5px auto;
 }
 
 @media (min-width: 600px){
@@ -29,7 +29,39 @@
 }
 
 .books_flex_box > div{
-    margin: 20px;
+    margin: 5px auto;
     padding: 10px;
     width: 200px;
+}
+
+.rating span { float:right; position:relative; }
+.rating span input {
+    position:absolute;
+    top:0px;
+    left:0px;
+    opacity:0;
+}
+.rating span label {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    color:#FFF;
+    background:#ccc;
+    font-size:30px;
+    margin-right:5px;
+    line-height:30px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+}
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background:#F90;
+    color:#FFF;
+}
+
+.books_flex_box > .flex_text_area{
+    width: 400px;
 }
