@@ -59,5 +59,17 @@
         </div>
     </form>
 </div>
-
+<div class="card text-white bg-info mb-3" id="my-review-section-align">
+    <h5 class="card-header">Reviews</h5>
+    {% for review in current_reviews %}
+    <div class="card-body">
+        <div>
+            <h5 class="card-title user_email">{{ review.user_email }}</h5>
+            <h5 class="card-title user_rating">Rating: {{ review.user_rating }}</h5>
+        </div>
+        <p class="card-text">{{ review.user_review }}</p>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
 {% endblock %}

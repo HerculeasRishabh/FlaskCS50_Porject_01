@@ -126,7 +126,10 @@ def find_book(isbn):
     book = Books(book_isbn=isbn)
     book_data = book.get_ISBN_Book()
 
-    return render_template("book_review.html", book_data=book_data, user=session['user'])
+    reviews_obj = Book_Review(book_isbn=isbn)
+    current_reviews = reviews_obj.select_user_review()
+
+    return render_template("book_review.html", book_data=book_data, user=session['user'], current_reviews=current_reviews)
 
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
@@ -139,12 +142,13 @@ def submit_review():
 
     print (session['user'][1], book_isbn, user_rating, type(user_review))
     
-    user_review_obj = Book_Review(session['user'][1], book_isbn, user_rating, user_review)
+    # book_isbn, user_email='', user_rating='', user_review='', review_timestamp=None
+    user_review_obj = Book_Review(book_isbn, session['user'][1], user_rating, user_review)
     review_result = user_review_obj.insert_user_review()
 
     print(review_result)
 
-    return render_template("test.html", user=session['user'])
+    return find_book(book_isbn)
 
 
 @app.route("/test")

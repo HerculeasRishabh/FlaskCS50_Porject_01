@@ -3,6 +3,8 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
+from datetime import datetime
+
 class Books:
     def __init__(self, book_isbn="", book_title="", book_author="", book_year=None):
         self.book_isbn=book_isbn
@@ -51,7 +53,7 @@ class Books:
 
 
 class Book_Review:
-    def __init__(self, user_email, book_isbn, user_rating, user_review='', review_timestamp=None):
+    def __init__(self, book_isbn, user_email='', user_rating='', user_review='', review_timestamp=None):
         self.user_email=user_email
         self.book_isbn=book_isbn
         self.user_rating=user_rating
@@ -74,8 +76,22 @@ class Book_Review:
         print (result)
         db.commit()
         return result if result is not None else None
-        
 
+    def select_user_review(self):
+        if not os.getenv("DATABASE_URL"):
+            raise("DATABASE_URL is not set!")
+
+        engine = create_engine(os.getenv("DATABASE_URL"))
+        db = scoped_session(sessionmaker(bind=engine))
+
+        try:
+            all_reviews = db.execute("SELECT * FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn", {"book_isbn" : self.book_isbn}).fetchall()
+        except Exception as err:
+            print("Error occured while fetcing user reviews")
+            print(err)
+        print (all_reviews)
+        print (all_reviews[0][4].date())
+        return all_reviews if all_reviews is not None else None
 
 if __name__ == "__main__":
     my_review = Book_Review()

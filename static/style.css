@@ -26,6 +26,9 @@
     .books_flex_box{
         width: 500px;
     }
+    .card > div{
+        width: 500px;
+    }
 }
 
 .books_flex_box > div{
@@ -75,13 +78,49 @@
     #my-review-form-align{
         width: 70%;
     }
+    #my-review-section-align{
+        width: 70%;
+    }
 }
 
 @media (max-width: 325px){
     #my-review-form-align{
         width: 325px;
     }
+    #my-review-section-align{
+        width: 325px;
+    }
     .books_flex_box{
         width: 200px;
     }
+}
+
+.card{
+    width: 600px;
+    margin: 10% auto;
+}
+
+.card > div{
+    margin: 5px auto;
+    padding: 10px;
+}
+
+.card-body > div{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px;
+}
+
+.card-body > div > h5{
+    padding: 10px;
+}
+
+
+.card-body > div > .user_email{
+    margin-right: 30%;
+    padding: 10px;
+}
+
+.card-body > div > .user_rating{
+    margin-left: 25px;
 }
