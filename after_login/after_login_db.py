@@ -49,7 +49,33 @@ class Books:
             print (err)
         return book if book is not None else None
 
+
+class Book_Review:
+    def __init__(self, user_email, book_isbn, user_rating, user_review='', review_timestamp=None):
+        self.user_email=user_email
+        self.book_isbn=book_isbn
+        self.user_rating=user_rating
+        self.user_review=user_review
+        self.review_timestamp=review_timestamp
+
+    def insert_user_review(self):
+        if not os.getenv("DATABASE_URL"):
+            return ("DATABASE_URL is not set!")
+
+        engine = create_engine(os.getenv("DATABASE_URL"))
+        db = scoped_session(sessionmaker(bind=engine))
+
+        try:
+            result = db.execute("INSERT INTO BOOK_REVIEWS(USER_EMAIL, BOOK_ISBN, USER_RATING, USER_REVIEW) VALUES (:user_email, :book_isbn, :user_rating, :user_review)",
+                    {"user_email" : self.user_email, "book_isbn" : self.book_isbn, "user_rating" : self.user_rating, "user_review" : self.user_review})
+        except Exception as err:
+            print ("Error in inserting user review")
+            print(err)
+        print (result)
+        db.commit()
+        return result if result is not None else None
+        
+
+
 if __name__ == "__main__":
-    my_book = Books(book_isbn="1234")
-    books = my_book.get_books()
-    print (books)
+    my_review = Book_Review()
