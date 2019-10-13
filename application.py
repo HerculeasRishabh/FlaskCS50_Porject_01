@@ -128,6 +128,14 @@ def find_book(isbn):
 
     return render_template("book_review.html", book_data=book_data, user=session['user'])
 
+@app.route("/submit_review")
+def submit_route():
+    if 'user' not in session:
+        return render_template('index.html', Message="Please login First")
+
+    
+
+
 @app.route("/test")
-def book_review():
-    return render_template("book_review.html")
+def test():
+    return render_template("test.html", user=session['user'])

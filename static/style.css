@@ -65,3 +65,23 @@
 .books_flex_box > .flex_text_area{
     width: 400px;
 }
+
+#my-review-form-align{
+    width: 600px;
+    margin: 20px auto;
+}
+
+@media (max-width: 599px){
+    #my-review-form-align{
+        width: 70%;
+    }
+}
+
+@media (max-width: 325px){
+    #my-review-form-align{
+        width: 325px;
+    }
+    .books_flex_box{
+        width: 200px;
+    }
+}
