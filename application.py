@@ -5,6 +5,8 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+from decimal import Decimal
+
 from before_login.before_login_db import Before_Login_Logic
 from after_login.after_login_db import Books, Book_Review
 
@@ -127,9 +129,9 @@ def find_book(isbn):
     book_data = book.get_ISBN_Book()
 
     reviews_obj = Book_Review(book_isbn=isbn)
-    current_reviews = reviews_obj.select_user_review()
+    average_rating, current_reviews = reviews_obj.select_user_review()
 
-    return render_template("book_review.html", book_data=book_data, user=session['user'], current_reviews=current_reviews)
+    return render_template("book_review.html", book_data=book_data, user=session['user'], current_reviews=current_reviews, average_rating=float(round(average_rating, 2)))
 
 @app.route("/submit_review", methods=["POST"])
 def submit_review():

@@ -86,12 +86,16 @@ class Book_Review:
 
         try:
             all_reviews = db.execute("SELECT * FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn", {"book_isbn" : self.book_isbn}).fetchall()
+ 
+            average_rating = db.execute("SELECT (SELECT COUNT(*) FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn GROUP BY BOOK_ISBN)/(SELECT AVG(USER_RATING) FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn) AS AVERAGE_RATING",
+                                {"book_isbn" : self.book_isbn}).fetchone()
         except Exception as err:
             print("Error occured while fetcing user reviews")
             print(err)
-        print (all_reviews)
-        print (all_reviews[0][4].date())
-        return all_reviews if all_reviews is not None else None
+        #print (all_reviews)
+        #print (all_reviews[0][4].date())
+        #print(average_rating)
+        return average_rating[0] if average_rating[0] is not None else 0, all_reviews if all_reviews is not None else None
 
 if __name__ == "__main__":
     my_review = Book_Review()

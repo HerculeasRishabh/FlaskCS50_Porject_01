@@ -111,16 +111,15 @@
     margin: 5px;
 }
 
-.card-body > div > h5{
+.card-body > div > div{
     padding: 10px;
 }
 
 
 .card-body > div > .user_email{
     margin-right: 30%;
-    padding: 10px;
 }
 
 .card-body > div > .user_rating{
-    margin-left: 25px;
+    margin-left: 20%;
 }
