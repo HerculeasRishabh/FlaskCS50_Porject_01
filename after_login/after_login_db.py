@@ -77,6 +77,24 @@ class Book_Review:
         db.commit()
         return result if result is not None else None
 
+    # SELECT * FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn AND USER_EMAIL = :user_email;
+
+    def old_review_check(self):
+        if not os.getenv("DATABASE_URL"):
+            raise ("DATABASE_URL is not set!")
+
+        engine = create_engine(os.getenv("DATABASE_URL"))
+        db = scoped_session(sessionmaker(bind=engine))
+
+        try:
+            old_reviews = db.execute("SELECT * FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn AND USER_EMAIL = :user_email",
+                    {"book_isbn" : self.book_isbn, "user_email" : self.user_email}).fetchone()
+        except Exception as err:
+            print("Error occured while fetching old user reviews")
+            print(err)
+        print(old_reviews)
+        return old_reviews if old_reviews is not None else None
+
     def select_user_review(self):
         if not os.getenv("DATABASE_URL"):
             raise("DATABASE_URL is not set!")
@@ -98,4 +116,5 @@ class Book_Review:
         return average_rating[0] if average_rating[0] is not None else 0, all_reviews if all_reviews is not None else None
 
 if __name__ == "__main__":
-    my_review = Book_Review()
+    my_review = Book_Review('0312349998', 'risha@gmail.com')
+    my_review.old_review_check()

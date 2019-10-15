@@ -32,8 +32,11 @@
         </table>
     </div>
 </div>
-
 <div class="my-form-align" id="my-review-form-align">
+    {% if old_reviews is none %}
+    <div class="alert alert-primary" role="alert">
+        Please write a review about the book
+    </div>
     <form action="{{ url_for('submit_review') }}" method="POST">
         <div class="books_flex_box">
             <div class="form-group rating">
@@ -47,7 +50,6 @@
 
         <div class="books_flex_box">
             <div class="form-group flex_text_area">
-                <label for="exampleFormControlTextarea1">Reivews</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="user_review"></textarea>
             </div>
         </div>
@@ -58,14 +60,20 @@
             <button type="Submit" class="btn btn-primary">Submit Review</button>
         </div>
     </form>
+    {% else %}
+    <div class="alert alert-success" role="alert">
+        You have alreay provided a review. Thanks!
+    </div>
+    {% endif %}
 </div>
-<div class="card text-white bg-info mb-3" id="my-review-section-align">
-    <h5 class="card-header">Reviews {{ average_rating }}</h5>
+
+<div class="card border-info mb-3" id="my-review-section-align">
+    <h5 class="card-header">Average Rating {{ average_rating }}</h5>
     {% for review in current_reviews %}
-    <div class="card-body">
+    <div class="card-body text-info">
         <div>
-            <div class="card-title user_email">{{ review.user_email }}</div>
-            <div class="card-title user_rating">Rating: {{ review.user_rating }}</div>
+            <div class="card-title user_email"><strong>{{ review.user_email }}</strong></div>
+            <div class="card-title user_rating"><i>Rating: {{ review.user_rating }}</i></div>
         </div>
         <p class="card-text">{{ review.user_review }}</p>
     </div>

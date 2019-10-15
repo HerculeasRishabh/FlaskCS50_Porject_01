@@ -128,10 +128,12 @@ def find_book(isbn):
     book = Books(book_isbn=isbn)
     book_data = book.get_ISBN_Book()
 
-    reviews_obj = Book_Review(book_isbn=isbn)
+    reviews_obj = Book_Review(book_isbn=isbn, user_email=session['user'][1])
     average_rating, current_reviews = reviews_obj.select_user_review()
 
-    return render_template("book_review.html", book_data=book_data, user=session['user'], current_reviews=current_reviews, average_rating=float(round(average_rating, 2)))
+    old_reviews = reviews_obj.old_review_check()
+
+    return render_template("book_review.html", book_data=book_data, user=session['user'], current_reviews=current_reviews, average_rating=float(round(average_rating, 2)), old_reviews=old_reviews)
 
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
