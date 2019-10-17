@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, request
+from flask import Flask, session, render_template, request, jsonify
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -153,6 +153,23 @@ def submit_review():
     print(review_result)
 
     return find_book(book_isbn)
+
+@app.route("/api/<string:isbn>")
+def find_book_json(isbn):
+    book = Books(book_isbn=isbn)
+    book_data = book.get_ISBN_Book()
+
+    reviews = Book_Review(book_isbn=isbn)
+    total_and_average_rating = dict(reviews.total_and_average_user_rating())
+
+    total_and_average_rating['average_rating'] = float(round(total_and_average_rating['average_rating'],2))
+
+    #print(total_and_average_rating)
+
+    complete_book_data = dict(book_data)
+    complete_book_data.update(dict(total_and_average_rating))
+    #print(book_data)
+    return jsonify(complete_book_data)
 
 
 @app.route("/test")

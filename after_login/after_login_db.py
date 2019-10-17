@@ -105,15 +105,32 @@ class Book_Review:
         try:
             all_reviews = db.execute("SELECT * FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn", {"book_isbn" : self.book_isbn}).fetchall()
  
-            average_rating = db.execute("SELECT (SELECT COUNT(*) FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn GROUP BY BOOK_ISBN)/(SELECT AVG(USER_RATING) FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn) AS AVERAGE_RATING",
+            average_rating = db.execute("SELECT AVG(USER_RATING) AS AVERAGE_RATING FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn",
                                 {"book_isbn" : self.book_isbn}).fetchone()
         except Exception as err:
             print("Error occured while fetcing user reviews")
             print(err)
         #print (all_reviews)
         #print (all_reviews[0][4].date())
-        #print(average_rating)
+        print(average_rating)
         return average_rating[0] if average_rating[0] is not None else 0, all_reviews if all_reviews is not None else None
+
+    
+    def total_and_average_user_rating (self):
+        if not os.getenv("DATABASE_URL"):
+            raise("DATABASE_URL is not set!")
+
+        engine = create_engine(os.getenv("DATABASE_URL"))
+        db = scoped_session(sessionmaker(bind=engine))
+
+        total_and_average_rating = None
+        try:
+            total_and_average_rating = db.execute("SELECT COUNT(USER_RATING) AS TOTAL_RATING, AVG(USER_RATING) AS AVERAGE_RATING FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn",
+                        {"book_isbn" : self.book_isbn}).fetchone()
+        except Exception as err:
+            print("Error while executign total_and_average_user_rating()")
+            print(err)
+        return total_and_average_rating
 
 if __name__ == "__main__":
     my_review = Book_Review('0312349998', 'risha@gmail.com')
