@@ -125,7 +125,7 @@ class Book_Review:
 
         total_and_average_rating = None
         try:
-            total_and_average_rating = db.execute("SELECT COUNT(USER_RATING) AS TOTAL_RATING, AVG(USER_RATING) AS AVERAGE_RATING FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn",
+            total_and_average_rating = db.execute("SELECT COUNT(USER_RATING) AS REVIEW_COUNT, AVG(USER_RATING) AS AVERAGE_RATING FROM BOOK_REVIEWS WHERE BOOK_ISBN = :book_isbn",
                         {"book_isbn" : self.book_isbn}).fetchone()
         except Exception as err:
             print("Error while executign total_and_average_user_rating()")
