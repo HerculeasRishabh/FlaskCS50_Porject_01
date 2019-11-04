@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, request, jsonify
+from flask import Flask, session, render_template, request, jsonify, url_for, redirect
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -152,7 +152,7 @@ def submit_review():
 
     print(review_result)
 
-    return find_book(book_isbn)
+    return redirect(url_for('find_book', isbn=book_isbn))
 
 @app.route("/api/<string:isbn>")
 def find_book_json(isbn):
