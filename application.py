@@ -133,7 +133,9 @@ def find_book(isbn):
 
     old_reviews = reviews_obj.old_review_check()
 
-    return render_template("book_review.html", book_data=book_data, user=session['user'], current_reviews=current_reviews, average_rating=float(round(average_rating, 2)), old_reviews=old_reviews)
+    return render_template("book_review.html", book_data=book_data, user=session['user'], 
+                            current_reviews=current_reviews, average_rating=float(round(average_rating, 2)), 
+                            old_reviews=old_reviews)
 
 @app.route("/submit_review", methods=["POST"])
 def submit_review():
